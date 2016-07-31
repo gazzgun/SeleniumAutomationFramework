@@ -16,5 +16,10 @@ namespace SeleniumAutomationFramework.Specs.Hooks
         {
             TestBase.TestSetup();
         }
+        [AfterScenario]
+        public void AfterScenario()
+        {
+            TestBase.TearDown();
+        }
     }
 }
