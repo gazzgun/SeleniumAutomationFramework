@@ -23,7 +23,10 @@ namespace SeleniumAutomationFramework.PageObjects
                 SeleniumDriver.CreateDriver();
             }
             PageFactory.Pages.HomePage.Goto();
-            HomePageSikuli.RestartSession();
+            //HomePageSikuli.RestartSession();
+            
+            PageFactory.Pages.ErrorPage.ClickRestartButton();
+            PageFactory.Pages.ErrorPageSignIn.ClickSignInAgainLink();
 
         }
 

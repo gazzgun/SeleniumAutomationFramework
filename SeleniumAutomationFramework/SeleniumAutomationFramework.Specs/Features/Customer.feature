@@ -4,8 +4,8 @@ Feature: CreateNewSalesOrder
 	I want to add, delete and modify customers 
 	So as I can keep track of my sales throughout my bussiness.
 
-	#Background:
-	#Given I am on the Home screen
+	Background:
+	Given I navigate to the customer screen
 
 	Scenario Outline: Create new customer card
 	Given I create a new customer "<CustomerName>"

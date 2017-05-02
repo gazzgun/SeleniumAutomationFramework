@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium.Support.PageObjects;
 using SeleniumAutomationFramework.Common.Helpers;
 using SeleniumAutomationFramework.Drivers;
 using SeleniumAutomationFramework.PageObjects.Model;
@@ -15,17 +16,19 @@ namespace SeleniumAutomationFramework.Specs.StepDefinitions
     {
         Customer customer = new Customer();
 
-        [Given(@"I am on the Home screen")]
-        public void GivenIAmOnTheHomeScreen()
+        [Given(@"I navigate to the customer screen")]
+        public void GivenINavigateToTheCustomerScreen()
         {
-            Assert.True(Pages.HomePage.GetTitle().Equals(SeleniumDriver.Instance.Title));
+            Pages.HomePage.ClickCustomer();
+            Thread.Sleep(500);
+            Assert.True(Pages.CreateCustomerPage.GetTitle().Equals(SeleniumDriver.Instance.Title));
         }
 
         [Given(@"I create a new customer ""(.*)""")]
         public void GivenIAmOnTheHomeScreenAndICreateANewCustomer(string customerName)
         {
             customer.setCustomerDetails(customerName);
-            Pages.HomePage.ClickCustomer();
+            //Pages.HomePage.ClickCustomer();
             Pages.HomePage.ClickCreateNewCustomer();
         }
         [When(@"I submit new customer details")]
@@ -45,7 +48,7 @@ namespace SeleniumAutomationFramework.Specs.StepDefinitions
         [Given(@"The customer ""(.*)"" exist")]
         public void GivenIAmOnTheHomeScreenAndTheCustomerExist(string customerId)
         {
-            Pages.HomePage.ClickCustomer();
+           // Pages.HomePage.ClickCustomer();
             if (!Pages.HomePage.ConfirmCustomer(customerId))
             {
                 customer.setCustomerDetails("QAWorks");

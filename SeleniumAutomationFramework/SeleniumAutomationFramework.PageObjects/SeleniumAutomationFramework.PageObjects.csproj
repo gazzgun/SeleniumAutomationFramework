@@ -77,6 +77,8 @@
     <Compile Include="Model\Customer.cs" />
     <Compile Include="PageFactory\Pages.cs" />
     <Compile Include="Pages\CreateCustomerPage.cs" />
+    <Compile Include="Pages\ErrorPage.cs" />
+    <Compile Include="Pages\ErrorPageSignIn.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sikuli\HomePageSikuli.cs" />

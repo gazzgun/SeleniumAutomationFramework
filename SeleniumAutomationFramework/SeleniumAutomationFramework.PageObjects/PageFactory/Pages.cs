@@ -26,10 +26,14 @@ namespace SeleniumAutomationFramework.PageObjects.PageFactory
         {
             get { return GetPage<CreateCustomerPage>(); }
         }
-        //public static StoreFinderPage StoreFinderPage
-        //{
-        //    get { return GetPage<StoreFinderPage>(); }
-        //}
+    public static ErrorPage ErrorPage
+        {
+            get { return GetPage<ErrorPage>(); }
+        }
+        public static ErrorPageSignIn ErrorPageSignIn
+        {
+            get { return GetPage<ErrorPageSignIn>(); }
+        }
 
         #endregion
     }

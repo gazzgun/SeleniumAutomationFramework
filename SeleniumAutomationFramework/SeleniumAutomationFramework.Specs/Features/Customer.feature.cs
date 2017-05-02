@@ -68,11 +68,21 @@ namespace SeleniumAutomationFramework.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 7
+ #line 8
+ testRunner.Given("I navigate to the customer screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         public virtual void CreateNewCustomerCard(string customerName, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new customer card", exampleTags);
 #line 10
  this.ScenarioSetup(scenarioInfo);
+#line 7
+ this.FeatureBackground();
 #line 11
  testRunner.Given(string.Format("I create a new customer \"{0}\"", customerName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
@@ -99,13 +109,15 @@ namespace SeleniumAutomationFramework.Specs.Features
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete Customer", exampleTags);
 #line 19
  this.ScenarioSetup(scenarioInfo);
+#line 7
+ this.FeatureBackground();
 #line 20
  testRunner.Given(string.Format("The customer \"{0}\" exist", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 21
  testRunner.And(string.Format("I select the customer to delete \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
- testRunner.When("I delete the customer information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
+ testRunner.When("I delete the customer information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
  testRunner.Then(string.Format("that customer should be deleted \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -125,13 +137,15 @@ namespace SeleniumAutomationFramework.Specs.Features
         public virtual void ModifyCustomerPhoneNumber(string customerID, string newNumber, string numberResult, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Modify Customer Phone Number", exampleTags);
-#line 29
- this.ScenarioSetup(scenarioInfo);
 #line 30
- testRunner.Given(string.Format("I select a customer to modify based on their id \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ this.ScenarioSetup(scenarioInfo);
+#line 7
+ this.FeatureBackground();
 #line 31
- testRunner.When(string.Format("I modify the phone number \"{0}\"", newNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given(string.Format("I select a customer to modify based on their id \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 32
+ testRunner.When(string.Format("I modify the phone number \"{0}\"", newNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
  testRunner.Then(string.Format("I should be able to see the updated phone number \"{0}\"", numberResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

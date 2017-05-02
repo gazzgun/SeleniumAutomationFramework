@@ -32,7 +32,7 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
         //edit title
         protected override string Title
         {
-            get { return " "; }
+            get { return "Customers - Microsoft Dynamics NAV"; }
         }
         String browser = ApplicationSettings.GetLocalBrowser;
         #endregion
@@ -135,11 +135,16 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
         [FindsBy(How = How.CssSelector, Using = "[title='Language Code']+div input")]
         private IWebElement languageCodeTB { get; set; }
 
-     
+
         #endregion
 
         #endregion
         #region methods
+        public String GetTitle()
+        {
+            return Title;
+        }
+
         public void CreateNewCustomer(Customer customer)
         {
             if (browser.Equals("chrome"))
