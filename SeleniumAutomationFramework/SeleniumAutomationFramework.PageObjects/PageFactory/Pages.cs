@@ -18,16 +18,14 @@ namespace SeleniumAutomationFramework.PageObjects.PageFactory
         }
         #region Pages
 
-        public static Header Header
-        {
-            get { return GetPage<Header>(); }
-        }
-
         public static HomePage HomePage
         {
             get { return GetPage<HomePage>(); }
         }
-
+        public static CreateCustomerPage CreateCustomerPage
+        {
+            get { return GetPage<CreateCustomerPage>(); }
+        }
         //public static StoreFinderPage StoreFinderPage
         //{
         //    get { return GetPage<StoreFinderPage>(); }

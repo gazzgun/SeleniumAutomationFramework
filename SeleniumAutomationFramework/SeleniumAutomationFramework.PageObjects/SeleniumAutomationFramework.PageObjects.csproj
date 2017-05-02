@@ -34,9 +34,15 @@
       <HintPath>..\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.9.1.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <HintPath>..\packages\LumenWorksCsvReader.3.9.1\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SikuliSharp, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SikuliSharp.1.2.0\lib\net45\SikuliSharp.dll</HintPath>
     </Reference>
     <Reference Include="SpecFlow.Assist.Dynamic, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Assist.Dynamic.1.1.0\lib\40\SpecFlow.Assist.Dynamic.dll</HintPath>
@@ -46,6 +52,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,11 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ApplicationSettings.cs" />
-    <Compile Include="Model\StoreName.cs" />
+    <Compile Include="Model\Customer.cs" />
     <Compile Include="PageFactory\Pages.cs" />
-    <Compile Include="Pages\Header.cs" />
+    <Compile Include="Pages\CreateCustomerPage.cs" />
     <Compile Include="Pages\HomePage.cs" />
+    <Compile Include="Pages\NewSalesOrderPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sikuli\HomePageSikuli.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +97,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Sikuli\Images\Restart.png" />
+    <Content Include="Sikuli\Images\SignInAgain.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

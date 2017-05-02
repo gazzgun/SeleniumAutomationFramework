@@ -1,88 +1,153 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumAutomationFramework.Drivers;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+
 
 namespace SeleniumAutomationFramework.Common.Helpers
 {
-    class SeleniumHelper : HelperBase
+    public class SeleniumHelper : HelperBase
     {
         #region Element Methods
-        public static string getText(IWebElement element)
+        public static string GetText(IWebElement iwe)
         {
             try
             {
-                return element.Text;
+                return iwe.Text;
             }
             catch (NoSuchElementException)
             {
                 return string.Empty;
             }
         }
-        public static bool TextContains(IWebElement element,string expectedText)
+
+        public static void FromDownListTextSelect(IWebElement iwe,String option)
         {
-            return element.Text.Contains(expectedText);
+            SelectElement selectList = new SelectElement(iwe);
+            selectList.SelectByText(option);
         }
+
+        public static void SelectElementFromDropdown(Dictionary<string, string> myDictionary)
+        {
+            foreach (var fieldItem in myDictionary)
+            {
+                new SelectElement(FindElement(By.CssSelector(fieldItem.Key))).SelectByText(
+                    fieldItem.Value);
+            }
+        }
+
+        public static void SelectOptionFromList(string cssSelector, string optionText)
+        {
+            var options = FindElements(By.CssSelector(cssSelector));
+
+            foreach (var option in options)
+            {
+                if (option.Text == (optionText))
+                {
+                    option.Click();
+                    Thread.Sleep(2000);
+                    break;
+                }
+            }
+        }
+
         public static bool UrlContains(string value)
         {
             return SeleniumDriver.Instance.Url.Contains(value);
         }
+
         public static string GetUrl()
         {
             return SeleniumDriver.Instance.Url;
         }
-        public static void PressEnter(IWebElement element)
+        public static void PressEnter(IWebElement iwe)
         {
             try
             {
-                if (element == null) return;
-                element.SendKeys(Keys.Enter);
+                if (iwe == null) return;
+                iwe.SendKeys(Keys.Enter);
             }
             catch (NullReferenceException)
             {
-
             }
         }
-        public static string GetAttributeValue(IWebElement element, string attributeName)
+
+       
+
+        public static bool GetText(IWebElement iwe, string text)
         {
-            return element.GetAttribute(attributeName);
+            return iwe != null && iwe.Text.Contains(text);
         }
 
-        public static void Click(IWebElement element)
+        public static void AssertIsTextPresent(IWebElement iwe, string expectedText)
         {
-            if (element != null)
+            
+            var isPresent = iwe != null && iwe.Text.Contains(expectedText);
+            Assert.IsTrue(isPresent, "Expected :: " + expectedText + " | " + "Actual :: " + iwe.Text);
+        }
+
+        public static string GetAttributeValue(IWebElement iwe, string attributeName)
+        {
+            return iwe != null ? iwe.GetAttribute(attributeName) : string.Empty;
+        }
+
+        #region IWebElements Doing Methods
+
+        public static bool IsTrue()
+        {
+            return true;
+        }
+
+
+        public static string TestName { get; set; }
+
+        public static string FeatureName { get; set; }
+
+        public static string[] Tags { get; set; }
+
+
+        public static void Click(IWebElement iwe)
+        {
+           
+                if (iwe != null)
             {
-                element.Click();
+                try
+                {
+                    iwe.Click();
+                }
+                catch (TargetInvocationException e) { }
             }
+           
         }
 
-        public static void ContextClick(IWebElement iwe)
-        {
-            new Actions(SeleniumDriver.Instance).ContextClick(iwe).Perform();
-        }
-
-        public static bool IsDisplayed(IWebElement element)
+        public static bool IsDisplayed(IWebElement iwe)
         {
             try
             {
-                return element.Displayed;
+                return iwe.Displayed;
             }
             catch (NoSuchElementException)
             {
                 return false;
             }
         }
-        public static bool IsEnabled(IWebElement element)
+
+        public static bool IsEnabled(IWebElement iwe)
         {
             try
             {
-                return element.Enabled;
+                return iwe.Enabled;
             }
             catch (NoSuchElementException)
             {
@@ -90,11 +155,11 @@ namespace SeleniumAutomationFramework.Common.Helpers
             }
         }
 
-        public static bool IsSelected(IWebElement element)
+        public static bool IsSelected(IWebElement iwe)
         {
             try
             {
-                return element.Selected;
+                return iwe.Selected;
             }
             catch (NoSuchElementException)
             {
@@ -102,11 +167,11 @@ namespace SeleniumAutomationFramework.Common.Helpers
             }
         }
 
-        public static bool IsChecked(IWebElement element)
+        public static bool IsChecked(IWebElement iwe)
         {
             try
             {
-                var result = Convert.ToBoolean(element.GetAttribute("checked"));
+                var result = Convert.ToBoolean(iwe.GetAttribute("checked"));
                 return result;
             }
             catch (Exception)
@@ -115,26 +180,31 @@ namespace SeleniumAutomationFramework.Common.Helpers
             }
         }
 
-
-        public static int HeightOfTheIWebElement(IWebElement element)
+        public static int HeightOfTheIWebElement(IWebElement iwe)
         {
-            return element.Size.Height;
+            return iwe.Size.Height;
         }
 
-        public static int WidthOfTheIWebElement(IWebElement element)
+        public static int WidthOfTheIWebElement(IWebElement iwe)
         {
-            return element.Size.Width;
+            return iwe.Size.Width;
         }
 
-        public static void Wait()
-        {
-            Thread.Sleep(1500);
-        }
+
+     
 
         public static void Wait(IWebElement iwe)
         {
-            var wait = new WebDriverWait(SeleniumDriver.Instance, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(SeleniumDriver.Instance, TimeSpan.FromSeconds(20));
             wait.Until(d => Equals(d.SwitchTo().ActiveElement(), iwe));
+        }
+
+        public static void WaitForElementToChangeText(IWebElement iwe, string newText)
+        {
+            while (!GetText(iwe).Contains(newText))
+            {
+                Thread.Sleep(1000);
+            }
         }
 
         public static void Wait(decimal seconds)
@@ -143,97 +213,125 @@ namespace SeleniumAutomationFramework.Common.Helpers
             Thread.Sleep(time);
         }
 
-        public static void SendKeys(IWebElement element, string input)
+        public static void SendKeys(IWebElement iwe, string input)
         {
             try
             {
-                if (element == null || input == null) return;
-                element.Clear();
-                element.SendKeys(input);
+                if (iwe == null || input == null) return;
+                iwe.Clear();
+                iwe.SendKeys(input);
             }
             catch (NullReferenceException)
             {
-
             }
         }
 
-        public static void ClearText(IWebElement element)
+      
+        public static void ClearText(IWebElement iwe)
         {
-            element.Clear();
+            iwe.Clear();
         }
+
+        public static bool IsAttributeValuePresentOnElement(IWebElement iwe, string attribute, string value)
+        {
+            try
+            {
+                if (iwe.Displayed)
+                {
+                    var computedValue = iwe.GetAttribute(attribute);
+                    if (computedValue.ToLower().Contains(value.ToLower()))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+        }
+
         public static IWebElement FindElement(Func<string, By> func, string selector)
         {
-            var element = SeleniumDriver.Instance.FindElement(func(selector));
-            return element;
+            var iwe = SeleniumDriver.Instance.FindElement(func(selector));
+            return iwe;
         }
+        
 
         public static IList<IWebElement> FindElements(Func<string, By> func, string selector)
         {
-            IList<IWebElement> element = SeleniumDriver.Instance.FindElements(func(selector));
+            IList<IWebElement> iwe = SeleniumDriver.Instance.FindElements(func(selector));
+            return iwe;
+        }
+
+        public static IWebElement getWebElementByCSS(String css)
+        {
+            IWebElement element = SeleniumDriver.Instance.FindElement(By.CssSelector(css));
             return element;
         }
 
-        public static string GetCssValue(IWebElement element, string cssValue)
+        public static string GetCssValue(IWebElement iwe, string cssValue)
         {
-            var value = element.GetCssValue(cssValue);
+            var value = iwe.GetCssValue(cssValue);
             return value;
+        }
+
+        public static string ReturnWebElementText(IWebElement iwe)
+        {
+            return iwe.Text;
         }
 
         #endregion
 
         #region Browser Window Methods
+
         public static void BackBrowserButton()
         {
             SeleniumDriver.Instance.Navigate().Back();
         }
+
         public static void ForwardBrowserButton()
         {
             SeleniumDriver.Instance.Navigate().Forward();
         }
+
+        public static void AcceptInformationMessage(string message)
+        {
+            var alert = SeleniumDriver.Instance.SwitchTo().Alert();
+            alert.SendKeys(message);
+            alert.Accept();
+        }
+
         public static void AcceptInformationMessage()
         {
             var alert = SeleniumDriver.Instance.SwitchTo().Alert();
             alert.Accept();
         }
-        public static void DismissInformationMessage()
-        {
-            var alert = SeleniumDriver.Instance.SwitchTo().Alert();
-            alert.Dismiss();
-        }
+
         public static int NumberOfBrowserWindows()
         {
             return SeleniumDriver.Instance.WindowHandles.Count;
         }
+
         public static void SwitchFrameByName(string title)
         {
             SeleniumDriver.Instance.SwitchTo().Frame(title);
         }
 
-        public static void SwitchFrameByIndex(int index)
+        public static void SwitchFrameById(int index)
         {
             SeleniumDriver.Instance.SwitchTo().Frame(index);
-        }
-
-        public static void SwitchFrameBySelector(By by)
-        {
-            SwitchFrameToDefault();
-
-            SeleniumDriver.Instance.SwitchTo().Frame(SeleniumDriver.Instance.FindElement(by));
         }
 
         public static void SwitchFrameToDefault()
         {
             SeleniumDriver.Instance.SwitchTo().DefaultContent();
         }
-        public static void ChangeBrowserInstanceToNewWindow(int frameIndex)
-        {
-            var handles = SeleniumDriver.Instance.WindowHandles;
-            SeleniumDriver.Instance.SwitchTo().Window(handles[frameIndex]);
-        }
 
         #endregion
 
-        #region Other Methods
+        #region Other Types of Methods
 
         public static void ScrollToElement(IWebElement element)
         {
@@ -244,6 +342,62 @@ namespace SeleniumAutomationFramework.Common.Helpers
             ((IJavaScriptExecutor)SeleniumDriver.Instance).ExecuteScript("window.scrollBy(0,-9000);");
             ((IJavaScriptExecutor)SeleniumDriver.Instance).ExecuteScript("window.scrollBy(0," + scrollY + ");");
         }
+
+        public static List<string> ListOfSitemapUrLs(string sitemapText)
+        {
+            var xelement = XElement.Parse(sitemapText);
+            var s = xelement.Value;
+            var listOfUrLs = s.Split(new[] { "http://" }, StringSplitOptions.RemoveEmptyEntries);
+            if (listOfUrLs.Length == 1)
+            {
+                listOfUrLs = s.Split(new[] { "https://" }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            var list = new List<string>(listOfUrLs);
+            var clensedList = (from el in list where !el.ToLower().Contains(".pdf") select el);
+            return clensedList.ToList();
+        }
+
+        public static void DismissInformationMessage()
+        {
+            SeleniumDriver.Instance.SwitchTo().Alert().Dismiss();
+        }
+
+        public static void SwitchHandleToDefault()
+        {
+            try
+            {
+                var handles = SeleniumDriver.Instance.WindowHandles;
+                SeleniumDriver.Instance.SwitchTo().Window(handles[0]);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public static bool SwitchWindowHandleByTitle(string title)
+        {
+            var amITrue = false;
+            try
+            {
+                var handles = SeleniumDriver.Instance.WindowHandles;
+                SeleniumDriver.Instance.SwitchTo().Window(handles[0]);
+                foreach (var handle in handles)
+                {
+                    amITrue = SeleniumDriver.Instance.SwitchTo().Window(handle).Title.Contains(title);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return amITrue;
+        }
+
+        public static void ChangeBrowserInstanceToNewWindow(int frameIndex)
+        {
+            var handles = SeleniumDriver.Instance.WindowHandles;
+            SeleniumDriver.Instance.SwitchTo().Window(handles[frameIndex]);
+        }
+
         public static void PressKey(string key)
         {
             var builder = new Actions(SeleniumDriver.Instance);
@@ -281,8 +435,27 @@ namespace SeleniumAutomationFramework.Common.Helpers
                     builder.SendKeys(Keys.PageDown);
                     break;
             }
+
+
             builder.Build().Perform();
         }
+
+        public static bool IsElementPresent(By by)
+        {
+            try
+            {
+                SeleniumDriver.Instance.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+
+
+
         public static void DeleteAllcookies()
         {
             SeleniumDriver.Instance.Manage().Cookies.DeleteAllCookies();
@@ -300,8 +473,29 @@ namespace SeleniumAutomationFramework.Common.Helpers
 
         public static void ClearBrowserCache()
         {
+            // Use Ctrl + F5
+            // Logger.WriteInformationToLog("Clearing Cache - using Ctrl + F5");
             var builder = new Actions(SeleniumDriver.Instance);
             builder.KeyDown(Keys.Control).SendKeys(Keys.F5).KeyUp(Keys.Control).Perform();
+        }
+
+        #endregion
+
+        public static void ContextClick(IWebElement iwe)
+        {
+            new Actions(SeleniumDriver.Instance).ContextClick(iwe).Perform();
+        }
+
+        public static IList<IWebElement> FindElements(By by)
+        {
+            var iwe = SeleniumDriver.Instance.FindElements(by);
+            return iwe;
+        }
+
+        public static IWebElement FindElement(By by)
+        {
+            var iwe = SeleniumDriver.Instance.FindElement(by);
+            return iwe;
         }
 
         public static IWebDriver GetDriver()
@@ -309,9 +503,31 @@ namespace SeleniumAutomationFramework.Common.Helpers
             return SeleniumDriver.Instance;
         }
 
+        public static void SwitchFrameBySelector(By by)
+        {
+            SwitchFrameToDefault();
+            //    var iwe = FindElement(by);
+
+            SeleniumDriver.Instance.SwitchTo()
+                .Frame(
+                    SeleniumDriver.Instance.FindElement(by));
+        }
+
+
+
+        public static IWebElement FindElement(IWebElement iweSearchingOff, By by)
+        {
+            return iweSearchingOff.FindElement(by);
+        }
+
         public static string[] SplitString(string split)
         {
             return split.Split();
+        }
+
+        public static string[] SplitStringWithChar(string split, char splitChar)
+        {
+            return split.Split(splitChar);
         }
 
         #endregion

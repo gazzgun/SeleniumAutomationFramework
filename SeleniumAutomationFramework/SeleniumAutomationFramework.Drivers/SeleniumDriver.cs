@@ -17,6 +17,7 @@ namespace SeleniumAutomationFramework.Drivers
 
         public static string LocalBrowser { get; set; }
         public static string BaseUrl { get; set; }
+        public static string DriverPath= @"C:\Drivers\";
 
         #endregion
 
@@ -31,21 +32,24 @@ namespace SeleniumAutomationFramework.Drivers
             switch (LocalBrowser.ToLower())
             {
                 case "chrome":
-                    WebDriver = new ChromeDriver(@"C:\Users\Gary\Documents\QAWorks\Drivers\");
+                    WebDriver = new ChromeDriver(DriverPath);
                     break;
                 case "firefox":
                     WebDriver = new FirefoxDriver();
                     break;
                 case "ie":
-                    WebDriver = new InternetExplorerDriver();
+                    var options = new InternetExplorerOptions();
+                    options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
+                    WebDriver = new InternetExplorerDriver(DriverPath,options);
+                   // WebDriver = new InternetExplorerDriver(DriverPath);
                     break;
                 default:
-                    WebDriver = new FirefoxDriver();
+                    WebDriver = new ChromeDriver(DriverPath);
                     break;
             }
             WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
             WebDriver.Manage().Window.Maximize();
-
+            
 
             return WebDriver;
         }
