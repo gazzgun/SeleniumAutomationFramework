@@ -71,13 +71,13 @@ namespace SeleniumAutomationFramework.Specs.Features
         public virtual void CreateNewCustomerCard(string customerName, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new customer card", exampleTags);
-#line 6
+#line 10
  this.ScenarioSetup(scenarioInfo);
-#line 7
- testRunner.Given(string.Format("I am on the home screen and I navigate to create a new customer \"{0}\"", customerName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I enter the new customer details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 11
+ testRunner.Given(string.Format("I create a new customer \"{0}\"", customerName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 12
+ testRunner.When("I submit new customer details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
  testRunner.Then("I should be able to see the new customer in the customer list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -97,13 +97,15 @@ namespace SeleniumAutomationFramework.Specs.Features
         public virtual void DeleteCustomer(string customerID, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete Customer", exampleTags);
-#line 16
- this.ScenarioSetup(scenarioInfo);
-#line 17
- testRunner.Given(string.Format("I am on the home screen and I select the customer to delete \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
- testRunner.And("the customer <customerID> exist\tWhen I delete the customer information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
+ this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given(string.Format("The customer \"{0}\" exist", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+ testRunner.And(string.Format("I select the customer to delete \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.When("I delete the customer information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
  testRunner.Then(string.Format("that customer should be deleted \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -123,15 +125,14 @@ namespace SeleniumAutomationFramework.Specs.Features
         public virtual void ModifyCustomerPhoneNumber(string customerID, string newNumber, string numberResult, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Modify Customer Phone Number", exampleTags);
-#line 25
+#line 29
  this.ScenarioSetup(scenarioInfo);
-#line 26
- testRunner.Given(string.Format("I am on the home screen and i select a customer to modify based on their id \"{0}\"" +
-                        "", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
- testRunner.When(string.Format("I modify their phone number \"{0}\"", newNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
- testRunner.Then(string.Format("I should be able to see their new phone number \"{0}\"", numberResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 30
+ testRunner.Given(string.Format("I select a customer to modify based on their id \"{0}\"", customerID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.When(string.Format("I modify the phone number \"{0}\"", newNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+ testRunner.Then(string.Format("I should be able to see the updated phone number \"{0}\"", numberResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

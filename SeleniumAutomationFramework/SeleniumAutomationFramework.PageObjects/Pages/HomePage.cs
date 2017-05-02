@@ -27,46 +27,39 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
         //edit title
         protected override string Title
         {
-            get { return " "; }
+            get { return "Sales Order Processor - Microsoft Dynamics NAV"; }
         }
 
         #endregion
 
-        
+
 
         #region Elements
-        [FindsBy(How = How.CssSelector,Using = ".home-tab.icon-Home")]
-        private IWebElement homePageIcon { get; set; }
         private IWebElement salesOrderOpenLink { get; set; }
         [FindsBy(How = How.Id,Using = "createNewEntityLink")]
         private IWebElement createNewEntry { get; set; }
         [FindsBy(How = How.LinkText,Using = "Customers")]
         private IWebElement customerLink { get; set; }
-        [FindsBy(How = How.CssSelector,Using = "[title ='QAWorks']")]
-        private IWebElement QAWorksTitle { get; set; }
-
-
-
         #endregion
 
 
         #region Methods
+        public String GetTitle()
+        {
+            return Title;
+        }
+        
         public void ClickCustomer()
         {
             SeleniumHelper.Wait(1);
             if(SeleniumHelper.IsDisplayed(customerLink))
                 SeleniumHelper.Click(customerLink);
+        }
+        public void ClickCreateNewCustomer()
+        {
             SeleniumHelper.Click(createNewEntry);
         }
-        public Boolean ConfirmNewCustomerCreation(String customerName)
-        {
-            Boolean result = false;
-            if (QAWorksTitle.Text.Equals(customerName))
-            {
-                result = true;
-            }
-            return result;
-        }
+        
         public Boolean ConfirmCustomer(String customerID)
         {
             Boolean result = false;
@@ -77,16 +70,6 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
             return result;
         }
 
-        [FindsBy(How = How.LinkText, Using = "Restart")]
-        private IWebElement retrestartLink { get; set; }
-        [FindsBy(How = How.LinkText,Using = "Sign in again")]
-        private IWebElement signInAgainLink { get; set; }
-        public void RestartSession()
-        {
-            SeleniumHelper.Click(retrestartLink);
-            SeleniumHelper.Click(signInAgainLink);
-
-        }
 
         public void SelectCustomerById(string customerID)
         {
@@ -94,7 +77,6 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
             SeleniumHelper.Click(customerLink);
             IWebElement customerToDelete = SeleniumDriver.Instance.FindElement
                (By.LinkText(customerID));
-                //(By.CssSelector("[title = 'Open record \"" + customerID + "\" in a new window']"));
             SeleniumHelper.Click(customerToDelete);
         }
 

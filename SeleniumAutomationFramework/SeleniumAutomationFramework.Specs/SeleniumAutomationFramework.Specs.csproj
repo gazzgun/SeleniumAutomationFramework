@@ -86,6 +86,10 @@
       <Project>{bd514801-f1a0-44ad-a83c-3308374bf387}</Project>
       <Name>SeleniumAutomationFramework.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SeleniumAutomationFramework.Drivers\SeleniumAutomationFramework.Drivers.csproj">
+      <Project>{1E23CDF1-1E06-4A59-BA55-EDA415EB6FBF}</Project>
+      <Name>SeleniumAutomationFramework.Drivers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SeleniumAutomationFramework.PageObjects\SeleniumAutomationFramework.PageObjects.csproj">
       <Project>{8771f352-d635-477c-8529-4cf3ba11e07b}</Project>
       <Name>SeleniumAutomationFramework.PageObjects</Name>

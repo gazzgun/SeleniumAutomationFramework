@@ -12,6 +12,7 @@ namespace SeleniumAutomationFramework.PageObjects.Sikuli
         static   ISikuliSession session;
         static IPattern restartButton = Patterns.FromFile(@"C:\Users\TechTeam\Source\Repos\SeleniumAutomationFramework\SeleniumAutomationFramework\SeleniumAutomationFramework.PageObjects\Sikuli\Images\Restart.png");
         static IPattern signInAgainButton = Patterns.FromFile(@"C:\Users\TechTeam\Source\Repos\SeleniumAutomationFramework\SeleniumAutomationFramework\SeleniumAutomationFramework.PageObjects\Sikuli\Images\SignInAgain.png");
+        static IPattern homeButton = Patterns.FromFile(@"C:\Users\TechTeam\Source\Repos\SeleniumAutomationFramework\SeleniumAutomationFramework\SeleniumAutomationFramework.PageObjects\Sikuli\Images\HomeButton.png");
 
         public static void CreateSession()
         {
@@ -24,6 +25,13 @@ namespace SeleniumAutomationFramework.PageObjects.Sikuli
             {
                 session.Click(restartButton);
                 session.Click(signInAgainButton);
+            }
+        }
+        public static void ReturnHome()
+        {
+            if (session.Exists(homeButton, 5))
+            {
+                session.Click(homeButton);
             }
         }
     }

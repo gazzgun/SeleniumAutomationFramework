@@ -152,48 +152,48 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
 
         public void EnterGeneralDetails(Customer newCustomer)
         {
-            //Sleep();
+            
             SeleniumHelper.Click(noTB);
             SeleniumHelper.SendKeys(noTB, newCustomer.number.ToString());
-            //Sleep();
+            
             SeleniumHelper.Click(nameTB);
             Thread.Sleep(500);
             SeleniumHelper.SendKeys(nameTB, newCustomer.name);
-            //Sleep();
+            
             SeleniumHelper.Click(addressTB);
             SeleniumHelper.SendKeys(addressTB, newCustomer.address);
-            //Sleep();
+            
             SeleniumHelper.Click(adress2TB);
             SeleniumHelper.SendKeys(adress2TB, newCustomer.address2);
-            //Sleep();
+            
             SeleniumHelper.Click(postCodeTB);
             SeleniumHelper.SendKeys(postCodeTB, newCustomer.postcode);
             //SendKeys.SendWait("{ESC}");
-            //Sleep();
+            
             SeleniumHelper.Click(cityTB);
             SeleniumHelper.SendKeys(cityTB, newCustomer.city);
-            //Sleep();
+            
             SeleniumHelper.Click(countryRegionTB);
             SeleniumHelper.SendKeys(countryRegionTB, newCustomer.country_region);
-            //Sleep();
+            
             SeleniumHelper.Click(phoneNoTB);
             SeleniumHelper.SendKeys(phoneNoTB, newCustomer.phoneNumber);
-            //Sleep();
+            
             SeleniumHelper.Click(searchNameTB);
             SeleniumHelper.SendKeys(searchNameTB, newCustomer.searchName);
-            //Sleep();
+            
             SeleniumHelper.Click(creditLimitTB);
             SeleniumHelper.SendKeys(creditLimitTB, newCustomer.creaditLimit);
-            //Sleep();
+            
             SeleniumHelper.Click(salespersonCodeTB);
             SeleniumHelper.SendKeys(salespersonCodeTB, newCustomer.salePersonCode);
-            //Sleep();
+            
             SeleniumHelper.Click(responsibilityCentreTB);
             SeleniumHelper.SendKeys(responsibilityCentreTB, newCustomer.responsibilityCenter);
-            //Sleep();
+            
             SeleniumHelper.Click(serviceZoneTB);
             SeleniumHelper.SendKeys(serviceZoneTB, newCustomer.serviceZoneCode);
-            //Sleep();
+            
 
 
         }
@@ -202,9 +202,9 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
         {
             //   SeleniumHelper.SendKeys(communicationPhoneNoTB, customer.communicationDetails.phoneNo.ToString());
             SeleniumHelper.SendKeys(emailTB, customer.email);
-            //Sleep();
+            
             SeleniumHelper.SendKeys(homePageURLTB, customer.homePageURL);
-            //Sleep();
+            
             // SeleniumHelper.SendKeys(icPartnerCodeTB, customer.communicationDetails.icPartnerCode);
         }
 
@@ -212,50 +212,50 @@ namespace SeleniumAutomationFramework.PageObjects.Pages
         {
 
             SeleniumHelper.FromDownListTextSelect(applicationMethodTB,customer.applicationMethod);
-            //Sleep();
+            
             SeleniumHelper.FromDownListTextSelect(partnerTypeTB, customer.partnerType);
-            //Sleep();
+            
             SeleniumHelper.Click(paymentTermsTB);
             SeleniumHelper.SendKeys(paymentTermsTB, customer.paymentTerms);
-            //Sleep();
+            
             SeleniumHelper.Click(paymentMethodCodeTB);
             SeleniumHelper.SendKeys(paymentMethodCodeTB, customer.paymentMethods);
-            //Sleep();
+            
             SeleniumHelper.Click(reminderTermsCodeTB);
             SeleniumHelper.SendKeys(reminderTermsCodeTB, customer.reminderTerms);
-            //Sleep();
+            
             SeleniumHelper.Click(chargeTermsCodeTB);
             SeleniumHelper.SendKeys(chargeTermsCodeTB, customer.chargeTermCode);
-            //Sleep();
+            
             SeleniumHelper.Click(cashFlowPatmentTermsCodeTB);
             SeleniumHelper.SendKeys(cashFlowPatmentTermsCodeTB, customer.cashFlowPayment);
-            //Sleep();
+            
             SeleniumHelper.Click(printStatementCB);
-            //Sleep();
+            
         }
 
         public void EnterShippingAndForeignDetails(Customer customer)
         {
             SeleniumHelper.Click(locationCodeTB);
             SeleniumHelper.SendKeys(locationCodeTB,customer.locationCode);
-            //Sleep();
+            
             SeleniumHelper.Click(combineShipmentsCB);
-            //Sleep();
+            
             SeleniumHelper.Click(shippingMethodCodeTB);
             SeleniumHelper.SendKeys(shippingMethodCodeTB,customer.shippingMethod);
-            //Sleep();
+            
             SeleniumHelper.Click(shippingAgentCodeTB);
             SeleniumHelper.SendKeys(shippingAgentCodeTB, customer.shippingAgent);
-            //Sleep();
+            
             SeleniumHelper.Click(baseCalendarCodeTB);
             SeleniumHelper.SendKeys(baseCalendarCodeTB,customer.baseCalendarCode);
-            //Sleep();
+            
             SeleniumHelper.Click(currencyCodeTB);
             SeleniumHelper.SendKeys(currencyCodeTB,customer.currencyCode);
-            //Sleep();
+            
             SeleniumHelper.Click(languageCodeTB);
             SeleniumHelper.SendKeys(languageCodeTB, customer.languageCode);
-            //Sleep();
+            
             SeleniumHelper.Click(headerXLink);
             Thread.Sleep(500);
             SendKeys.SendWait("{TAB}");

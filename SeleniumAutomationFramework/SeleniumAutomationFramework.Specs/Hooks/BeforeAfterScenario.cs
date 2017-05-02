@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium.Support.PageObjects;
+using SeleniumAutomationFramework.Common.Helpers;
 using SeleniumAutomationFramework.PageObjects;
 using SeleniumAutomationFramework.PageObjects.PageFactory;
 using SeleniumAutomationFramework.PageObjects.Sikuli;
@@ -29,7 +30,7 @@ namespace SeleniumAutomationFramework.Specs.Hooks
             TestBase.ChromeDelay();
         }
         [AfterFeature]
-        public static void AfterScenario()
+        public static void AfterFeature()
         {
             TestBase.TearDown();
         }

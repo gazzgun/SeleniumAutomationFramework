@@ -78,7 +78,6 @@
     <Compile Include="PageFactory\Pages.cs" />
     <Compile Include="Pages\CreateCustomerPage.cs" />
     <Compile Include="Pages\HomePage.cs" />
-    <Compile Include="Pages\NewSalesOrderPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sikuli\HomePageSikuli.cs" />
     <Compile Include="TestBase.cs" />
@@ -98,6 +97,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sikuli\Images\HomeButton.png" />
     <Content Include="Sikuli\Images\Restart.png" />
     <Content Include="Sikuli\Images\SignInAgain.png" />
   </ItemGroup>
